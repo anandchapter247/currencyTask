@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Route;
           Route::post('currency/list', 'App\Http\Controllers\CurrencyController@list');
           Route::post('currency/history', 'App\Http\Controllers\CurrencyController@currencyHistory');   
           Route::post('currency/calculation', 'App\Http\Controllers\CurrencyController@currencyCalculation');
-
+          Route::post('logout','App\Http\Controllers\AuthController@logout');
       });
 
 
