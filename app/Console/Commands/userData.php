@@ -46,7 +46,7 @@ class userData extends Command
         $data->name = $name;
         $data->email = $email;
         $data->email_verified_at = now();
-        $data->password = $password;
+        $data->password = bcrypt($password);
         $data->email_verified_at = now();
         $data->save();
         $this->info('User register successfully');
