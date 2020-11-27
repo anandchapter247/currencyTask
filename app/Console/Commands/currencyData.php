@@ -61,6 +61,7 @@ class currencyData extends Command
                     $dataHistory->currency_date = $xml['Date'];
                     $dataHistory->save();
                 }
+                $this->info('currency recored update');
                 
             }
         } 
