@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         if (!User::count()) {
-            \App\Models\User::factory(20)->create();
+            \App\Models\User::factory(1)->create();
         }        
 
         $xml = file_get_contents('http://www.cbr.ru/scripts/XML_daily.asp');
