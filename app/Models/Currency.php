@@ -20,6 +20,5 @@ class Currency extends Model
         'CharCode',
         'Nominal',
         'Name',
-       // 'Value'
     ];
 }

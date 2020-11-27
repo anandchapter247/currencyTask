@@ -21,10 +21,10 @@ use Illuminate\Support\Facades\Route;
     Route::group([
         'middleware' => 'auth:api'
       ], function() {
-          Route::get('currency/list', 'App\Http\Controllers\CurrencyController@list');
+          Route::post('currency/list', 'App\Http\Controllers\CurrencyController@list');
           Route::post('currency/history', 'App\Http\Controllers\CurrencyController@currencyHistory');   
           Route::post('currency/calculation', 'App\Http\Controllers\CurrencyController@currencyCalculation');
-          
+
       });
 
 

@@ -11,7 +11,7 @@ class CurrencyController extends Controller
 {
     public function list(Request $request)
     {
-        if (!isset($request->page_size) && (!isset($request->page))) {
+        if (!isset($request->page_size) ) {
             return response()->json([
                 'status' => 'error',
                 'data' => []
@@ -19,7 +19,7 @@ class CurrencyController extends Controller
         }
         return response()->json([
             'status' => 'success',
-            'data' => Currency::limit($request->page)->paginate($request->page_size)
+            'data' => Currency::paginate($request->page_size)
         ]);
     }
 
