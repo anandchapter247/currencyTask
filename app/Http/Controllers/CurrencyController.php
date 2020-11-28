@@ -53,16 +53,15 @@ class CurrencyController extends Controller
     public function currencyCalculation(Request $request)
     {              
         if (isset($request->date) && isset($request->base_currency_id)) {
-            $min =  CurrencyHistory::whereBetween('currency_date', [ now() , $request->date])
+            $min = CurrencyHistory::where('currency_date', '<=',$request->date)
                 ->where('currency_id', $request->base_currency_id)
                 ->min('price');
-            $max =  CurrencyHistory::whereBetween('currency_date', [ now() , $request->date])
-            ->where('currency_id', $request->base_currency_id)
-            ->max('price');
-
-            $avg =  CurrencyHistory::whereBetween('currency_date', [ now() , $request->date])
-            ->where('currency_id', $request->base_currency_id)
-            ->avg('price');
+            $max = CurrencyHistory::where('currency_date', '<=', $request->date)
+                ->where('currency_id', $request->base_currency_id)
+                ->max('price');
+            $avg = CurrencyHistory::where('currency_date', '<=', $request->date)
+                ->where('currency_id', $request->base_currency_id)
+                ->avg('price');
         } elseif (isset($request->base_currency_id)) {
             $min = CurrencyHistory::where('currency_id', $request->base_currency_id)
                 ->min('price');
