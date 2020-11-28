@@ -1,8 +1,9 @@
 
-First copy this directory inside local server directory of LAMP/WAMP/XAMPP.
-Open Command prompt go to inside project directory folder run  for project create.
+First goto inside local server directory /var/www/html
+Open Command prompt clone the project from
 
-"composer create-project --prefer-dist laravel/laravel project_name"
+"git clone https://github.com/anandchapter247/currencyTask.git"
+
 
 go to project folder in command line then hit 
 "composer install"
