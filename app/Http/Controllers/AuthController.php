@@ -17,8 +17,7 @@ class AuthController extends Controller
             'password' => 'required|string'
         ]);
 
-        $credentials = request(['email', 'password']);
-        Auth::attempt($credentials);
+        $credentials = request(['email', 'password']);      
         if(!Auth::attempt($credentials))
             return response()->json([
                 'success' => 'error',
