@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Models\Currency;
 use App\Models\CurrencyHistory;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use Carbon\Carbon;
 
 class currencyData extends Command
 {
@@ -54,16 +55,19 @@ class currencyData extends Command
                     $data->Name = $value->Name;
                     $data->save();
                 }
+                $xml['Date'] =  Carbon::parse($xml['Date'])->format('Y-m-d h:i:s');
+               
                 if (!CurrencyHistory::where('currency_date', $xml['Date'])->where('currency_id', $value->NumCode)->count()) {
-                    $dataHistory = new CurrencyHistory;
-                    $dataHistory->currency_id = $value->NumCode;
-                    $dataHistory->price = $value->Value;
-                    $dataHistory->currency_date = $xml['Date'];
-                    $dataHistory->save();
-                }
-                $this->info('currency recored update');
+                    $dataHistory= [
+                        'currency_id' => $value->NumCode,
+                        'price' => $value->Value,
+                        'currency_date' => $xml['Date'],
+                    ];
+                    $history = CurrencyHistory::create($dataHistory);
+                }        
                 
             }
+            $this->info('commond run successfully');
         } 
     }
 }
