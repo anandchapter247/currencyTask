@@ -40,7 +40,6 @@ class CurrencyController extends Controller
             $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();
         }
         
-
         return response()->json([
             'status' => 'success',
             'data' => [
