@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class userData extends Command
 {
@@ -46,7 +47,7 @@ class userData extends Command
         $data->name = $name;
         $data->email = $email;
         $data->email_verified_at = now();
-        $data->password = bcrypt($password);
+        $data->password = Hash::make($password);
         $data->email_verified_at = now();
         $data->save();
         $this->info('User register successfully');

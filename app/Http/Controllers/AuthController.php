@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {   
@@ -15,7 +16,9 @@ class AuthController extends Controller
             'email' => 'required|string|email',
             'password' => 'required|string'
         ]);
+
         $credentials = request(['email', 'password']);
+        Auth::attempt($credentials);
         if(!Auth::attempt($credentials))
             return response()->json([
                 'success' => 'error',
@@ -23,7 +26,7 @@ class AuthController extends Controller
             ], 401);
         $user = $request->user();
         $tokenResult = $user->createToken('Personal Access Token');
-        $token = $tokenResult->token;
+        $token = $tokenResult->token;       
         if ($request->remember_me)
             $token->expires_at = Carbon::now()->addWeeks(1);
         $token->save();

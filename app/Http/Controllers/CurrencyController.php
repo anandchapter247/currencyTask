@@ -13,7 +13,7 @@ class CurrencyController extends Controller
     {
         if (!isset($request->page_size) ) {
             return response()->json([
-                'status' => 'error',
+                'status' => 'all paramtere are not found',
                 'data' => []
             ]);
         }
@@ -25,14 +25,21 @@ class CurrencyController extends Controller
 
     public function currencyHistory(Request $request)
     {
-        if (!isset($request->currency_id)) {
+        if (!isset($request->currency_id) && !isset($request->page_size) ) {
             return response()->json([
-                'status' => 'error',
+                'status' => 'all required paramtere are not found',
                 'data' => []
             ]);
         }
-        $dataHistory = CurrencyHistory::where('currency_id', $request->currency_id)->get();
-        $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();
+        if (isset($request->page_size) && isset($request->date_from) && isset($request->date_to) ) {
+            $dataHistory = CurrencyHistory::whereBetween('currency_date', [ $request->date_from , $request->date_to])
+                ->where('currency_id', $request->currency_id)->paginate($request->page_size);
+            $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();  
+        } else {
+            $dataHistory = CurrencyHistory::where('currency_id', $request->currency_id)->get();
+            $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();
+        }
+        
 
         return response()->json([
             'status' => 'success',
@@ -66,7 +73,7 @@ class CurrencyController extends Controller
                 ->avg('price');
         } else {
             return response()->json([
-                'status' => 'error',
+                'status' => 'all paramtere are not found',
                 'data' => []
             ]);
         }
