@@ -36,7 +36,7 @@ class CurrencyController extends Controller
                 ->where('currency_id', $request->currency_id)->paginate($request->page_size);
             $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();  
         } else {
-            $dataHistory = CurrencyHistory::where('currency_id', $request->currency_id)->get();
+            $dataHistory = CurrencyHistory::where('currency_id', $request->currency_id)->paginate($request->page_size);
             $dataCurrency = Currency::where('NumCode', $request->currency_id)->first();
         }
         
